@@ -5,11 +5,11 @@
 //  Created by 大大 on 2025/2/17.
 //
 
+import AppKit
 import AudioToolbox
 import Combine
 import Foundation
 import OSLog
-import AppKit
 
 // MARK: - AudioProcessController
 
@@ -23,11 +23,11 @@ final class AudioProcessController {
             guard self.processes != oldValue else {
                 return
             }
-
             self.processGroups = AudioProcessGroup.groups(with: self.processes)
         }
     }
 
+    /// Unused
     private(set) var processGroups = [AudioProcessGroup]()
 
     private var cancellables = Set<AnyCancellable>()

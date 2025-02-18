@@ -8,7 +8,7 @@
 import Foundation
 import Observation
 import OSLog
-import SwiftUI
+import AppKit
 
 /// Uses TCC SPI in order to check/request system audio recording permission.
 @Observable

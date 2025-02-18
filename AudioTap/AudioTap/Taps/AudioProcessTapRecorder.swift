@@ -5,33 +5,33 @@
 //  Created by 大大 on 2025/2/17.
 //
 
+import AVFoundation
+import Combine
 import Foundation
 import OSLog
-import AVFoundation
 
- 
 // MARK: - ProcessTapRecorder
 
 @Observable
 final class AudioProcessTapRecorder {
     let fileURL: URL
     let processes: [AudioProcess]
-    private let queue = DispatchQueue(label: "AudioProcessTapRecorder", qos: .userInitiated)
+    private let queue = DispatchQueue(label: "com.tap.audio.queue.record", qos: .userInitiated)
     private let logger: Logger
 
     @ObservationIgnored
-    private weak var _tap: ProcessTap?
+    private weak var _tap: AudioProcessTap?
 
     private(set) var isRecording = false
 
-    init(fileURL: URL, tap: ProcessTap) {
+    init(fileURL: URL, tap: AudioProcessTap) {
         self.processes = tap.processes
         self.fileURL = fileURL
         self._tap = tap
         self.logger = Logger(subsystem: kAppSubsystem, category: "\(String(describing: AudioProcessTapRecorder.self))(\(fileURL.lastPathComponent))")
     }
 
-    private var tap: ProcessTap {
+    private var tap: AudioProcessTap {
         get throws {
             guard let _tap else {
                 throw "Process tab unavailable"

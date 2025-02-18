@@ -7,15 +7,15 @@
 
 import AudioToolbox
 import AVFoundation
+import Combine
 import Foundation
 import OSLog
-import SwiftUI
 
 // MARK: - ProcessTap
 
 @Observable
-final class ProcessTap {
-    typealias InvalidationHandler = (ProcessTap) -> Void
+final class AudioProcessTap {
+    typealias InvalidationHandler = (AudioProcessTap) -> Void
 
     let processes: [AudioProcess]
     let muteWhenRunning: Bool
@@ -26,7 +26,7 @@ final class ProcessTap {
     init(processes: [AudioProcess], muteWhenRunning: Bool = false) {
         self.processes = processes
         self.muteWhenRunning = muteWhenRunning
-        self.logger = Logger(subsystem: kAppSubsystem, category: "\(String(describing: ProcessTap.self))(\(processes.description))")
+        self.logger = Logger(subsystem: kAppSubsystem, category: "\(String(describing: AudioProcessTap.self))(\(processes.description))")
     }
 
     @ObservationIgnored

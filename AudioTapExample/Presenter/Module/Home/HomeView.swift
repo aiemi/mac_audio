@@ -8,12 +8,18 @@
 import SwiftUI
 
 struct HomeView: View {
+    
+    @StateObject var presenter = HomePresenter()
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Button {
+                presenter.reload()
+            } label: {
+                Text("权限开始")
+            }
+            .padding()
+
         }
         .padding()
     }

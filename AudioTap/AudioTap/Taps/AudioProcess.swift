@@ -35,26 +35,6 @@ struct AudioProcessGroup: Identifiable, Hashable, Sendable {
     var processes: [AudioProcess]
 }
 
-extension AudioProcess.Kind {
-    var defaultIcon: NSImage {
-        switch self {
-        case .process: NSWorkspace.shared.icon(for: .unixExecutable)
-        case .app: NSWorkspace.shared.icon(for: .applicationBundle)
-        }
-    }
-}
-
-extension AudioProcess {
-    var icon: NSImage {
-        guard let bundleURL else {
-            return self.kind.defaultIcon
-        }
-        let image = NSWorkspace.shared.icon(forFile: bundleURL.path)
-        image.size = NSSize(width: 32, height: 32)
-        return image
-    }
-}
-
 extension AudioProcess {
     init(app: NSRunningApplication, objectID: AudioObjectID) {
         let name = app.localizedName ?? app.bundleURL?.deletingPathExtension().lastPathComponent ?? app.bundleIdentifier?.components(separatedBy: ".").last ?? "Unknown \(app.processIdentifier)"
