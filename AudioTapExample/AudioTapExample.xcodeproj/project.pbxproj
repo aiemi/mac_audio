@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXFileReference section */
@@ -12,16 +12,8 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		0673F8A62D6320890062EAF7 /* AudioTapExample */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = AudioTapExample;
-			sourceTree = "<group>";
-		};
-		0673F8B62D6320EC0062EAF7 /* Presenter */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Presenter;
-			sourceTree = "<group>";
-		};
+		0673F8A62D6320890062EAF7 /* AudioTapExample */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AudioTapExample; sourceTree = "<group>"; };
+		0673F8B62D6320EC0062EAF7 /* Presenter */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Presenter; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +94,7 @@
 				};
 			};
 			buildConfigurationList = 0673F89F2D6320890062EAF7 /* Build configuration list for PBXProject "AudioTapExample" */;
+			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -110,7 +103,6 @@
 			);
 			mainGroup = 0673F89B2D6320890062EAF7;
 			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 77;
 			productRefGroup = 0673F8A52D6320890062EAF7 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
