@@ -86,6 +86,7 @@ final class AudioProcessTapRecorder {
                     throw "Failed to create PCM buffer"
                 }
 
+                print("Recorder start write local file.")
                 try currentFile.write(from: buffer)
             } catch {
                 self.logger.error("\(error, privacy: .public)")

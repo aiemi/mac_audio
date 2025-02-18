@@ -36,8 +36,12 @@ public final class AudioMotion: NSObject {
     
     // @StateObject
     @State private var permission = AudioRecordingPermission()
-    // @StateObject
+
     @State private var processController = AudioProcessController()
+    
+    @State private var processTap: AudioProcessTap?
+    
+    @State private var recorder: AudioProcessTapRecorder?
     
     // MARK: - Methods
     
@@ -45,7 +49,15 @@ public final class AudioMotion: NSObject {
     
     private func config() {
         if !self.processController.processes.isEmpty {
-            print("processController.processes update: \(self.processController.processes.count)")
+            print("Process Start create tap with processs: \(self.processController.processes.count)")
+            self.processTap = .init(processes: self.processController.processes)
+            self.processTap?.activate()
+            
+            print("Process Start create recorder and recoding.")
+            let filename = "\(tap.processes.count)-\(Int(Date.now.timeIntervalSinceReferenceDate))"
+            let audioFileURL = URL.applicationSupport.appendingPathComponent(filename, conformingTo: .wav)
+            self.recorder = AudioProcessTapRecorder(fileURL: audioFileURL, tap: tap)
+            try? self.recorder?.start()
         }
         
         switch self.permission.status {

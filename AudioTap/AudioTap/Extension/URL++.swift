@@ -29,3 +29,20 @@ extension URL {
         (try? resourceValues(forKeys: [.contentTypeKey]))?.contentType?.conforms(to: .application) == true
     }
 }
+
+extension URL {
+    static var applicationSupport: URL {
+        do {
+            let appSupport = try FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let subdir = appSupport.appending(path: "AudioCapture", directoryHint: .isDirectory)
+            if !FileManager.default.fileExists(atPath: subdir.path) {
+                try FileManager.default.createDirectory(at: subdir, withIntermediateDirectories: true)
+            }
+            return subdir
+        } catch {
+            assertionFailure("Failed to get application support directory: \(error)")
+
+            return FileManager.default.temporaryDirectory
+        }
+    }
+}
