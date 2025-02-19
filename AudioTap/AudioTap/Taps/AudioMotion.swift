@@ -70,8 +70,11 @@ public final class AudioMotion: NSObject {
                 print("Process Start create tap failed")
                 return
             }
+            if self.recorder != nil {
+                self.recorder?.stop()
+            }
             print("Process Start create recorder.")
-            let filename = "\(processTap.processes.count)-\(Int(Date.now.timeIntervalSinceReferenceDate))"
+            let filename = "AudioRecord_\(Int(Date.now.timeIntervalSinceReferenceDate))"
             let audioFileURL = URL.applicationSupport.appendingPathComponent(filename, conformingTo: .wav)
             self.recorder = AudioProcessTapRecorder(fileURL: audioFileURL, tap: processTap)
             if self.recorder != nil {

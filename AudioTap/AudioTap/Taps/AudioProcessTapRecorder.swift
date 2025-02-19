@@ -86,8 +86,15 @@ final class AudioProcessTapRecorder {
                 guard let buffer = AVAudioPCMBuffer(pcmFormat: format, bufferListNoCopy: inInputData, deallocator: nil) else {
                     throw "Failed to create PCM buffer"
                 }
-                print("Recorder start write local file.")
+                // 录制存储文件到本地
                 try currentFile.write(from: buffer)
+                /*
+                 // 存储Data回调外部使用
+                 if let mdata = inInputData.pointee.mBuffers.mData {
+                     let data = Data(bytes: mdata, count: Int(inInputData.pointee.mBuffers.mDataByteSize))
+                     print("record buffer success:")
+                 }
+                 */
             } catch {
                 self.logger.error("\(error, privacy: .public)")
             }
