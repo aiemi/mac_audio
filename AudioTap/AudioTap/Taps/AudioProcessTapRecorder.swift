@@ -9,6 +9,7 @@ import AVFoundation
 import Combine
 import Foundation
 import OSLog
+import AppKit
 
 // MARK: - ProcessTapRecorder
 
@@ -85,7 +86,6 @@ final class AudioProcessTapRecorder {
                 guard let buffer = AVAudioPCMBuffer(pcmFormat: format, bufferListNoCopy: inInputData, deallocator: nil) else {
                     throw "Failed to create PCM buffer"
                 }
-
                 print("Recorder start write local file.")
                 try currentFile.write(from: buffer)
             } catch {
@@ -117,6 +117,11 @@ final class AudioProcessTapRecorder {
         } catch {
             self.logger.error("Stop failed: \(error, privacy: .public)")
         }
+    }
+    
+    @MainActor
+    func open() {
+        NSWorkspace.shared.selectFile(fileURL.path, inFileViewerRootedAtPath: fileURL.deletingLastPathComponent().path)
     }
 
     private func handleInvalidation() {

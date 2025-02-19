@@ -20,6 +20,19 @@ struct HomeView: View {
             }
             .padding()
 
+            Button {
+                presenter.start()
+            } label: {
+                Text("开始")
+            }
+            .padding()
+            
+            Button {
+                presenter.stop()
+            } label: {
+                Text("结束打开")
+            }
+            .padding()
         }
         .padding()
     }

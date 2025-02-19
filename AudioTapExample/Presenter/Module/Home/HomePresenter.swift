@@ -14,4 +14,12 @@ class HomePresenter: ObservableObject {
     func reload() {
         _ = AudioMotion.shared
     }
+    
+    func start() {
+        AudioMotion.shared.startRecord()
+    }
+    
+    func stop() {
+        AudioMotion.shared.stopsRecord()
+    }
 }

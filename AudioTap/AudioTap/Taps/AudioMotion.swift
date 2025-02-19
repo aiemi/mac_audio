@@ -39,27 +39,15 @@ public final class AudioMotion: NSObject {
 
     @State private var processController = AudioProcessController()
     
-    @State private var processTap: AudioProcessTap?
+    private var processTap: AudioProcessTap?
     
-    @State private var recorder: AudioProcessTapRecorder?
+    private var recorder: AudioProcessTapRecorder?
     
     // MARK: - Methods
     
     private var cancellable: AnyCancellable?
     
-    private func config() {
-        if !self.processController.processes.isEmpty {
-            print("Process Start create tap with processs: \(self.processController.processes.count)")
-            self.processTap = .init(processes: self.processController.processes)
-            self.processTap?.activate()
-            
-            print("Process Start create recorder and recoding.")
-            let filename = "\(tap.processes.count)-\(Int(Date.now.timeIntervalSinceReferenceDate))"
-            let audioFileURL = URL.applicationSupport.appendingPathComponent(filename, conformingTo: .wav)
-            self.recorder = AudioProcessTapRecorder(fileURL: audioFileURL, tap: tap)
-            try? self.recorder?.start()
-        }
-        
+    private func config() {        
         switch self.permission.status {
         case .unknown:
             print("audio permission request")
@@ -71,6 +59,25 @@ public final class AudioMotion: NSObject {
             print("audio permission denied, start system")
             NSWorkspace.shared.openSystemSettings()
         }
+        
+        if !self.processController.processes.isEmpty {
+            print("Process Start create tap with processs: \(self.processController.processes.count)")
+            let tap = AudioProcessTap(processes: self.processController.processes)
+            self.processTap = tap
+            self.processTap?.activate()
+            
+            guard let processTap = self.processTap else {
+                print("Process Start create tap failed")
+                return
+            }
+            print("Process Start create recorder.")
+            let filename = "\(processTap.processes.count)-\(Int(Date.now.timeIntervalSinceReferenceDate))"
+            let audioFileURL = URL.applicationSupport.appendingPathComponent(filename, conformingTo: .wav)
+            self.recorder = AudioProcessTapRecorder(fileURL: audioFileURL, tap: processTap)
+            if self.recorder != nil {
+                print("Process Start create recorder success.")
+            }
+        }
     }
 }
 
@@ -78,6 +85,15 @@ public extension AudioMotion {
     func startRecordingTest() {
         let data = Data()
         self.delegate?.receiveAudioData(data)
+    }
+    
+    func startRecord() {
+        try? self.recorder?.start()
+    }
+    
+    func stopsRecord() {
+        self.recorder?.stop()
+        self.recorder?.open()
     }
 }
 
